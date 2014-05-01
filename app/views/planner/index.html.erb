@@ -1,0 +1,28 @@
+<h1>My planning</h1>
+
+<% if !@events.empty? %>
+
+<% current_day = @events[0] %>
+
+<table>
+<% @events.each do |event| %>
+
+	<% if event.day_name == current_day %>
+
+		<tr><td><%= event.day_name %></td></tr>
+
+	<% else %>
+		</table>
+		<table>
+		<% current_day = event.day_name %>
+
+	<% end #if/else block %>
+
+<% end #loop end %>
+
+</table>
+
+<% else %>
+no events to show
+<% end #if %>
+

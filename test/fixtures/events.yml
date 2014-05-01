@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  day_name: 1
+  has_length: false
+  begda: 2014-04-28
+  endda: 2014-04-28
+  comments: MyText
+
+two:
+  title: MyString
+  day_name: 1
+  has_length: false
+  begda: 2014-04-28
+  endda: 2014-04-28
+  comments: MyText
