@@ -2,23 +2,28 @@
 
 <% if !@events.empty? %>
 
-<% current_day = @events[0] %>
+<% current_day = @events[0].day_name %>
 
-<table>
-<% @events.each do |event| %>
+<table border="1">
+
+<tr><th><%= "#{WEEK[current_day - 1]}" %></th></tr>
+
+	<% @events.each do |event| %>
 
 	<% if event.day_name == current_day %>
 
-		<tr><td><%= event.day_name %></td></tr>
+	<tr><td><%= event.title %></td></tr>
 
 	<% else %>
 		</table>
-		<table>
+		<hr/>
+		<table border="1">
 		<% current_day = event.day_name %>
-
+		<tr><th><%= "#{WEEK[current_day - 1]}" %></th></tr>
+		<tr><td><%= event.title %></td></tr>
 	<% end #if/else block %>
 
-<% end #loop end %>
+	<% end #loop end %>
 
 </table>
 
