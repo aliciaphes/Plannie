@@ -6,17 +6,13 @@ Planner::Application.routes.draw do
 
 	devise_scope :user do
 		authenticated :user do
-    root 'planner#index', as: :authenticated_root
+    root 'events#index', as: :authenticated_root
   end
 
   unauthenticated do
   	root 'devise/sessions#new', as: :unauthenticated_root
   end
 end
-
-
-
-
 
 
 resources :events
