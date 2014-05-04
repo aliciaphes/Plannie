@@ -1,37 +1,47 @@
-<h1>My planning</h1>
+<h2>My planning</h2>
 <%= link_to "sign out", destroy_user_session_path, method: :delete %>
 <hr/>
 
+
+
 <% if !@events.empty? %>
 
-<% current_day = @events[0].day_name %>
+<!-- <% current_day = @events[0].event_date %> -->
 
 <table border="1">
 
 	<tr>
-		<th><%= "#{WEEK[current_day - 1]}" %>
-			<%= link_to "Add", new_event_path %>		
+		<th>
+			<%= @current_day %>
+			<!-- current_day.to_formatted_s(:long_ordinal) -->
+			<%= link_to "Add", new_event_path %>
+		
 		</th>
 	</tr>
 
 	<% @events.each do |event| %>
 
-	<% if event.day_name == current_day %>
+	<% if event.event_date == @current_day %>
 
-	<tr><td><%= event.title %><br/>
-		<%= event.begda %>
+	<tr><td><%= event.id %>:<%= event.title %><br/>
+<!-- event.begti.strftime("%I:%M%p") -->
+		<%= event.begti %>-<%= event.endti %>
 	</td></tr>
 
 	<% else %>
 </table>
 <hr/>
 <table border="1">
-	<% current_day = event.day_name %>
-	<tr><th><%= "#{WEEK[current_day - 1]}" %>
-<%= link_to "Add", new_event_path %>
-	</th></tr>
-	<tr><td><%= event.title %><br/>
-		<%= event.begda %>
+	<% @current_day = event.event_date %>
+	<tr>
+		<th>
+
+			<%= @current_day %>
+			<%= link_to "Add", new_event_path %>
+	</th>
+</tr>
+	<tr><td><%= event.id %>:<%= event.title %><br/>
+		<%= event.begti %>-<%= event.endti %>
 	</td></tr>
 	<% end #if/else block %>
 

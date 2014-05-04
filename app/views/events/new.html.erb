@@ -1,0 +1,56 @@
+<h2>New event</h2>
+
+
+<% if @event.errors.any? %>
+	<h5><%= pluralize(@event.errors.count, "error") %> while creating event</h5>
+	<ul>
+	<% @event.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+	<% end %>
+	</ul>
+<% end %>
+
+
+
+<%= form_for @event do |f| %>
+<p>
+	<%= f.label :title %>
+	<%= f.text_field :title %>
+</p>
+
+
+<p>
+<%= f.label :day_name, "Day name, BORRAR" %>
+<%= f.select :day_name, options_for_select(Date::DAYNAMES) %>
+</p>
+
+
+<p>
+<%= f.label "Date" %>
+<%= f.date_field(:event_date) %>
+</p>
+
+
+<p>
+<%= f.label :has_length %>
+<%= f.check_box(:has_length) %>
+</p>
+
+
+<p>
+<%= f.label :begti, "From" %>
+<%= f.time_field(:begti) %>
+<%= f.label :endti, "to" %>
+<%= f.time_field(:endti) %>
+</p>
+
+
+
+<p>
+	<%= f.label :comments %>
+	<%= f.text_area :comments %>
+</p>
+
+<br/>
+<%= f.submit "Create" %>
+<% end %>
