@@ -3,6 +3,8 @@
 <hr/>
 
 
+<%= link_to "Add", new_event_path %>
+
 
 <% if !@events.empty? %>
 
@@ -14,8 +16,6 @@
 		<th>
 			<%= @current_day %>
 			<!-- current_day.to_formatted_s(:long_ordinal) -->
-			<%= link_to "Add", new_event_path %>
-		
 		</th>
 	</tr>
 
@@ -24,8 +24,15 @@
 	<% if event.event_date == @current_day %>
 
 	<tr><td><%= event.id %>:<%= event.title %><br/>
-<!-- event.begti.strftime("%I:%M%p") -->
-		<%= event.begti %>-<%= event.endti %>
+		<!-- event.begti.strftime("%I:%M%p") -->
+		<!-- .to_s(:time) -->
+		<%= event.begti %>-<%= event.endti %><br/>
+		<%= link_to "view", event %>
+
+
+<!-- <td><a href="#child4">My clickable text</a></td> -->
+
+
 	</td></tr>
 
 	<% else %>
@@ -35,13 +42,12 @@
 	<% @current_day = event.event_date %>
 	<tr>
 		<th>
-
 			<%= @current_day %>
-			<%= link_to "Add", new_event_path %>
-	</th>
-</tr>
+		</th>
+	</tr>
 	<tr><td><%= event.id %>:<%= event.title %><br/>
-		<%= event.begti %>-<%= event.endti %>
+		<%= event.begti %>-<%= event.endti %><br/>
+		<%= link_to "view", event %>
 	</td></tr>
 	<% end #if/else block %>
 
@@ -50,6 +56,10 @@
 </table>
 
 <% else %>
-no events to show
+
+<table>
+	<tr><td>no events to show</td></tr>
+</table>
+
 <% end #if %>
 

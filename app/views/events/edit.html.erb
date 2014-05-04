@@ -1,4 +1,4 @@
-<h2>New event</h2>
+<h2>Edit "<%= @event.title %>"</h2>
 
 
 <% if @event.errors.any? %>
@@ -17,13 +17,6 @@
 	<%= f.label :title %>
 	<%= f.text_field :title %>
 </p>
-
-
-<p>
-<%= f.label :day_name, "Day name, BORRAR" %>
-<%= f.select :day_name, options_for_select(Date::DAYNAMES) %>
-</p>
-
 
 <p>
 <%= f.label :event_date, "Date" %>
@@ -52,5 +45,7 @@
 </p>
 
 <br/>
-<%= f.submit "Create" %>
+<%= f.submit "Update" %>
+<%= f.submit :cancel %>
 <% end %>
+

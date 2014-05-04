@@ -13,23 +13,20 @@ class EventsController < ApplicationController
 	end
 
 
-#def show #show a particular event
-#end
-
-def new
-	@event = Event.new
-end
+	def show #show a particular event
+		@event = Event.find(params[:id])
+	end
 
 
-def create
-	@event = Event.new(safe_params)
+	def new
+		@event = Event.new
+	end
 
-	@event.email  = current_user.email
 
-		#@event.event_date = params[:event][:event_date].to_date
+	def create
+		@event = Event.new(safe_params)
 
-		#puts "EVENT.event_date = #{@event.event_date}"
-		#puts "params[:event][:event_date] = #{params[:event][:event_date]}"
+		@event.email  = current_user.email
 
 		if @event.save
 			redirect_to events_path
@@ -40,7 +37,25 @@ def create
 
 
 
+	def edit
+		@event = Event.find(params[:id])
+	end
 
+
+	def update
+		if params[:cancel]
+			redirect_to @event
+		else
+			@event = Event.find(params[:id])
+
+			if @event.update(safe_params)
+				redirect_to @event
+			else
+				render :edit
+			end				
+		end
+
+	end
 
 
 	private

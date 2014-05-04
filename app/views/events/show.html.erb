@@ -1,0 +1,36 @@
+
+<h2><%= @event.title %></h2><%= link_to "Edit", edit_event_path %>
+
+
+<p>
+<label for="event_title">Title</label>
+<input id="event_title" value="<%= @event.title %>" type="text" disabled>	
+</p>
+
+
+<p>
+<label for="event_event_date">Date</label>
+<input id="event_event_date" value="<%= @event.event_date %>" type="date" disabled>
+</p>
+
+<p>
+<label for="event_has_length">Has length</label>
+<input id="event_has_length" value="<%= @event.has_length %>" type="checkbox" disabled>
+</p>
+
+
+<p>
+<label for="event_begti">From</label>
+<input id="event_begti" value="<%= @event.begti %>" type="time" disabled>
+<label for="event_endti">to</label>
+<input id="event_endti" value="<%= @event.endti %>" type="time" disabled>
+</p>
+
+
+
+<p>
+<label for="event_comments">Comments</label>
+<textarea id="event_comments" value="<%= @event.comments %>" disabled></textarea>
+</p>
+
+<%= link_to "Back", events_path %>
