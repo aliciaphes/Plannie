@@ -44,3 +44,10 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'devise'
+
+
+gem 'validates_timeliness', '~> 3.0.14'
+
+
+#gem 'google-api-client', '~> 0.7.1'
+gem 'google-api-client', :require => 'google/api_client'

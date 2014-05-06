@@ -6,15 +6,17 @@ Planner::Application.routes.draw do
 
 	devise_scope :user do
 		authenticated :user do
-    root 'events#index', as: :authenticated_root
-  end
+			root 'events#index', as: :authenticated_root
+		end
 
-  unauthenticated do
-  	root 'devise/sessions#new', as: :unauthenticated_root
-  end
-end
+		unauthenticated do
+			root 'devise/sessions#new', as: :unauthenticated_root
+		end
+	end
 
 
-resources :events
+	resources :events
+
+	get '/events/:id/gcreate', to: 'events#gcreate', as: "gevent"
 
 end

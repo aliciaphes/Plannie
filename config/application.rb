@@ -1,6 +1,14 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'rubygems'
+
+require 'google/api_client'
+#require 'google/api_client/client_secrets'
+#require 'google/api_client/auth/installed_app'
+
+#require 'yaml'
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

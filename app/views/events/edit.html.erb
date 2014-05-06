@@ -1,3 +1,5 @@
+
+<%= link_to "sign out", destroy_user_session_path, method: :delete %>
 <h2>Edit "<%= @event.title %>"</h2>
 
 
@@ -33,8 +35,14 @@
 <p>
 <%= f.label :begti, "From" %>
 <%= f.time_field(:begti) %>
+
+
+
+<span id="hidden_to_field">
 <%= f.label :endti, "to" %>
 <%= f.time_field(:endti) %>
+</span>
+
 </p>
 
 
@@ -45,7 +53,7 @@
 </p>
 
 <br/>
-<%= f.submit "Update" %>
+<%= f.submit "update" %>
 <%= f.submit :cancel %>
 <% end %>
 
