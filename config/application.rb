@@ -3,7 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 require 'rubygems'
 
-require 'google/api_client'
+#require 'google/api_client'
 #require 'google/api_client/client_secrets'
 #require 'google/api_client/auth/installed_app'
 

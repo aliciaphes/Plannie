@@ -24,13 +24,8 @@
 	<% if event.event_date == @current_day %>
 
 	<tr><td><%= event.title %><br/>
-		<!-- .to_s(:time) -->
-		<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
 		<%= link_to "view", event %>
-
-
-<!-- <td><a href="#child4">My clickable text</a></td> -->
-
 
 	</td></tr>
 
@@ -45,7 +40,7 @@
 		</th>
 	</tr>
 	<tr><td><%= event.title %><br/>
-		<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+	<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
 		<%= link_to "view", event %>
 	</td></tr>
 	<% end #if/else block %>

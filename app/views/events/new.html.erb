@@ -33,7 +33,7 @@
 
 <p>
 <%= f.label :has_length %>
-<%= f.check_box(:has_length) %>
+<%= f.check_box :has_length %>
 </p>
 
 
@@ -45,6 +45,10 @@
 </p>
 
 
+<p>
+	<%= f.label :is_private, "Private event" %>
+	<%= f.check_box :is_private %>
+</p>
 
 <p>
 	<%= f.label :comments %>

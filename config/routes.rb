@@ -17,6 +17,6 @@ Planner::Application.routes.draw do
 
 	resources :events
 
-	get '/events/:id/gcreate', to: 'events#gcreate', as: "gevent"
+	#get '/events/:id/gcreate', to: 'events#gcreate', as: "gevent"
 
 end

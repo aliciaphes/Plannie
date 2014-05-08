@@ -4,8 +4,7 @@ class EventsController < ApplicationController
 
 	def index
 		#@events = Event.all
-		@events = Event.where(email: current_user.email, deleted: false).order(:event_date)
-		#.order(:day_name)
+		@events = Event.where(email: current_user.email, deleted: false, is_private: false).order(:event_date)
 
 		if !@events.empty?
 			@current_day = @events[0].event_date
@@ -15,6 +14,20 @@ class EventsController < ApplicationController
 
 	def show #show a particular event
 		@event = Event.find(params[:id])
+
+
+#<span><%= #link_to "Create Google Calendar event", gevent_path %></span>
+#<span><%= link_to "Create Google Calendar event", "http://www.google.com/calendar", target: "_blank" %></span> -->
+
+#dates	Of the form: START/END where START and END are in ISO8601 format
+#%Y%m%dT%H%MZ
+#&dates=20140127T224000Z/20140320T221500Z
+		iso_date  = @event.event_date.strftime("%Y%m%d")
+		iso_begti = @event.begti.strftime("%H%M%S")
+		#iso_endti = iso_begti
+		iso_endti = @event.endti.strftime("%H%M%S")
+
+		@complete_date = "#{iso_date}T#{iso_begti}Z/#{iso_date}T#{iso_endti}Z"
 	end
 
 
@@ -25,6 +38,9 @@ class EventsController < ApplicationController
 
 	def create
 		@event = Event.new(safe_params)
+
+		#if the event has no length, we set endtime=starttime before saving to avoid errors:
+		@event.endti   = @event.begti
 
 		@event.email   = current_user.email
 		@event.deleted = false
@@ -70,33 +86,9 @@ class EventsController < ApplicationController
 	end
 
 
-	def gcreate
-		@event = Event.find(params[:id])
-		
-		if @init.nil?
-			@init = init_service
-		end
-
-		#retrieve all necessary info from event
-
-g_event = {
-			'summary' => @event.title,
-			'description' => @event.comments,
-			'start' => {
-				'dateTime' => '2011-06-03T10:00:00.000-07:00'
-				},
-			'end' => {
-					'dateTime' => '2011-06-03T10:25:00.000-07:00'
-					}
-		}
-		result = @client.execute(:api_method => @service.events.insert,
-			:parameters => {'calendarId' => 'primary'},
-			:body => JSON.dump(g_event),
-			:headers => {'Content-Type' => 'application/json'})		
-	end
 
 
-
+#Private section
 
 	private
 
@@ -104,34 +96,7 @@ g_event = {
 
 	#add stuff to the white list: _permit_ method
 	def safe_params
-		params.require(:event).permit(:title, :event_date, :begti, :endti, :comments, :has_length)
-		#:day_name
-	end
-
-
-	def init_service
-=begin
-		oauth_yaml = YAML.load_file('.google-api.yaml')
-		client = Google::APIClient.new
-		client.authorization.client_id = oauth_yaml["client_id"]
-		client.authorization.client_secret = oauth_yaml["client_secret"]
-		client.authorization.scope = oauth_yaml["scope"]
-		client.authorization.refresh_token = oauth_yaml["refresh_token"]
-		client.authorization.access_token = oauth_yaml["access_token"]
-=end
-
-		@client = Google::APIClient.new
-		@client.authorization.client_id = "889067249941.apps.googleusercontent.com"
-		@client.authorization.client_secret = "0vCaXnf2L1PT-NLfYUw5f7bL"
-		@client.authorization.scope = "https://www.googleapis.com/auth/calendar"
-		@client.authorization.refresh_token = nil #oauth_yaml["refresh_token"]
-		@client.authorization.access_token = nil #oauth_yaml["access_token"]
-
-		if @client.authorization.refresh_token && @client.authorization.expired?
-			@client.authorization.fetch_access_token!
-		end
-
-		@service = @client.discovered_api('calendar', 'v3')	
+		params.require(:event).permit(:title, :event_date, :begti, :endti, :comments, :has_length, :is_private)
 	end
 
 end
