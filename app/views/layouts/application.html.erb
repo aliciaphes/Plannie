@@ -1,14 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Planner</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
+	<title>Planner</title>
+	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+
+  <% if !current_user.nil? %>
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Planner</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+<!--           <li><a href="#">Link</a></li>
+          <li><a href="#">Link2</a></li> -->
+          <li><span></span></li>
+          <li><span></span></li>          
+
+<li>
+        <form class="navbar-form" action="/events/search">
+
+          <!-- <div class="form-group"> -->
+          <input type="text" name="search_this" class="form-control" placeholder="Search">
+
+          <!-- </div> -->
+          <button type="submit" value="search" class="btn btn-default">Search</button>
+          <%= link_to "Search", search_events_path %>
+        </form>
+
+</li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+              <li class="divider"></li>
+              <li><%= link_to "sign out", destroy_user_session_path, method: :delete %></li>
+
+
+            </ul>
+          </li>
+
+
+        </ul>
+
+      </div><!-- navbar-collapse -->
+    </div><!-- container-fluid -->
+  </nav>
+
+  <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <%= yield %>
 
 </body>
 </html>

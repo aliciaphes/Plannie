@@ -1,25 +1,17 @@
 <h2>My planning</h2>
 
 
-
-
-<%= link_to "Add", new_event_path %>
-
-
-<% if !@events.empty? %>
-
-<!-- <% current_day = @events[0].event_date %> -->
+<% if !@events_found_by_title.empty? %>
 
 <table border="1">
 
 	<tr>
 		<th>
 			<%= @current_day %>
-			<!-- current_day.to_formatted_s(:long_ordinal) -->
 		</th>
 	</tr>
 
-	<% @events.each do |event| %>
+	<% @events_found_by_title.each do |event| %>
 
 	<% if event.event_date == @current_day %>
 
@@ -52,7 +44,7 @@
 <% else %>
 
 <table>
-	<tr><td>no events to show</td></tr>
+	<tr><td>no events were found</td></tr>
 </table>
 
 <% end #if %>

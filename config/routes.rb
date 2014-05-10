@@ -15,8 +15,19 @@ Planner::Application.routes.draw do
 	end
 
 
-	resources :events
+	#resources :events
+	resources :users
 
 	#get '/events/:id/gcreate', to: 'events#gcreate', as: "gevent"
+
+	#get '/events/search/', to: 'events#search', as: "search"
+
+resources :events do
+  collection do
+    get  :search
+    #post  :new_search
+    #get  :show_search
+  end
+end
 
 end

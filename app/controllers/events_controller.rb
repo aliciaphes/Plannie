@@ -22,8 +22,8 @@ class EventsController < ApplicationController
 #dates	Of the form: START/END where START and END are in ISO8601 format
 #%Y%m%dT%H%MZ
 #&dates=20140127T224000Z/20140320T221500Z
-		iso_date  = @event.event_date.strftime("%Y%m%d")
-		iso_begti = @event.begti.strftime("%H%M%S")
+iso_date  = @event.event_date.strftime("%Y%m%d")
+iso_begti = @event.begti.strftime("%H%M%S")
 		#iso_endti = iso_begti
 		iso_endti = @event.endti.strftime("%H%M%S")
 
@@ -87,10 +87,28 @@ class EventsController < ApplicationController
 
 
 
+	def search
+
+		#search events by title
+		@events_found_by_title = Event.where(["email = ? and deleted = ? and title LIKE ?", "#{current_user.email}", false, "%#{params[:search_this]}%"])
+
+		#Search events by comments
+		@events_found_by_comments = Event.where(["email = ? and deleted = ? and comments LIKE ?", "#{current_user.email}", false, "%#{params[:search_this]}%"])
+
+		#if some event with comments found, append to the first array
+		if !@events_found_by_comments.empty?
+			@events_found_by_title.push(@events_found_by_comments)	
+		end
+
+		if !@events_found_by_title.empty?
+			@current_day = @events_found_by_title[0].event_date
+		end
+	end
+
 
 #Private section
 
-	private
+private
 
 	#Make sure the 'event' key is in the params hash: _require_ method
 
