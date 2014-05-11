@@ -7,14 +7,10 @@
 
 			<form class="navbar-form" action="/events/new">
 				<button type="submit" class="btn btn-default">Add</button>
-			</form>
-
-			
+			</form>			
 		</div>
 
 	</div>
-
-
 
 	<div class="row">
 
@@ -44,7 +40,7 @@
 
 				<td><%= event.title %><br/>
 					<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
-					<%= link_to "view", event %>
+					<!-- <%= link_to "view", event %> -->
 
 				</td>
 				</tr>
@@ -66,7 +62,7 @@
 
 					<td><%= event.title %><br/>
 					<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
-					<%= link_to "view", event %>
+					<!-- <%= link_to "view", event %> -->
 				</td>
 			</tr>
 				<% end #if/else block %>
@@ -89,10 +85,3 @@
 	</div>
 
 </div>
-
-
-
-
-
-
-

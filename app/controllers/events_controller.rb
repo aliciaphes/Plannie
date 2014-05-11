@@ -92,18 +92,9 @@ iso_begti = @event.begti.strftime("%H%M%S")
 
 		if !params[:search_this].empty?
 
-			#search events by title
-			@events_found = Event.where(["email = ? and deleted = ? and title LIKE ?", "#{current_user.email}", false, "%#{params[:search_this]}%"])
+			#search events by title and comments (using OR)
+			@events_found = Event.where(["email = ? and deleted = ? and (title LIKE ? or comments LIKE ?)", "#{current_user.email}", false, "%#{params[:search_this]}%", "%#{params[:search_this]}%"]).order(:event_date)
 			#@events_found = Event.where("email = :email AND deleted = :deleted AND title LIKE :pattern",{ email: "#{current_user.email}", deleted: false, pattern: "%#{params[:search_this]}%" })
-
-
-			#Search events by comments
-			events_found_by_comments = Event.where(["email = ? and deleted = ? and comments LIKE ?", "#{current_user.email}", false, "%#{params[:search_this]}%"])
-
-			#if some event with comments found, append to the first array
-			if !events_found_by_comments.empty?
-				@events_found.concat(events_found_by_comments)	
-			end
 
 			#puts "#{@events_found.length} results found"
 

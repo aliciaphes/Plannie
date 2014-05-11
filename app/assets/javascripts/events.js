@@ -22,7 +22,7 @@ $(document).ready(function() {
 
 
 
-	if($("#event_has_length").is(':checked')){
+		if($("#event_has_length").is(':checked')){
 		//alert("is checked");
 		$("#hidden_to_field").show();
 	}		
@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 
 
-	});
+});
 
 
 /**
@@ -39,7 +39,7 @@ $(document).ready(function() {
 		$("#hidden_to_field").show();
 	}		
 	else $("#hidden_to_field").hide();
-*/	
+	*/	
 
 
 
@@ -60,17 +60,22 @@ $("#event_has_length").each(function () {
 
 
 
-		$(document).on('click', ".clickable_row", function () {
-            //window.document.location = $(this).data('url');
-            $(location).attr('href', $(this).data('url'));
-        });
+	$(document).on('click', ".clickable_row", function () {
+        //window.document.location = $(this).data('url');
+        $(location).attr('href', $(this).data('url'));
+    });
+
+
+	$(".clickable_row").hover(
+	  function() {
+	    $(this).addClass("row_hovered");
+
+	  }, function() {
+	    $(this).removeClass("row_hovered");
+	  }
+	);
 
 
 
 
-
-
-
-
-
-});
+}); //document.ready

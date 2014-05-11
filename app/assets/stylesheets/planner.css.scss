@@ -7,3 +7,19 @@
 .clickable_row{
 	cursor: pointer;
 }
+
+.row_hovered{
+	background-color: LightSeaGreen;
+}
+
+.calendar{
+	//background-image: url(image_path('calendar2.jpg'));
+}
+
+textarea {
+        //border-style: none;
+        //border-color: Transparent;
+        background: transparent;
+        //overflow: auto;
+        //outline: none;
+      }

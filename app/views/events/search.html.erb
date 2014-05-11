@@ -1,52 +1,82 @@
-<h2>My planning</h2>
 
 
-<%= "#{@events_found.length} events found" %>
+<div class="container-fluid">
+	<div class="row">
 
-<% if !@events_found.empty? %>
+		<div class="col-sm-6 col-sm-offset-1">
+			<h2><%= pluralize(@events_found.length, "event") %> containing "<%= "#{params[:search_this]}" %>"</h2>			
+		</div>
 
-<table class="table table-condensed">
+	</div>
 
-	<tr>
-		<th>
-			<%= @current_day %>
-		</th>
-	</tr>
 
-	<% @events_found.each do |event| %>
 
-	<% if event.event_date == @current_day %>
+	<div class="row">
 
-	<tr><td><%= event.title %><br/>
-		<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
-		<%= link_to "view", event %>
+		<div class="col-sm-4 col-sm-offset-1">
 
-	</td></tr>
+			<% if !@events_found.empty? %>
 
-	<% else %>
-</table>
-<hr/>
-<table class="table table-condensed">
-	<% @current_day = event.event_date %>
-	<tr>
-		<th>
-			<%= @current_day %>
-		</th>
-	</tr>
-	<tr><td><%= event.title %><br/>
-		<!-- 	time conversion <br/> -->
-		<%= link_to "view", event %>
-	</td></tr>
-	<% end #if/else block %>
+			<table class="table table-condensed table-bordered">
 
-	<% end #loop end %>
+				<tr>
+					<th>
+						<%= @current_day.strftime('%a %-d %b %Y') %>
+					</th>
+				</tr>
 
-</table>
+				<% @events_found.each do |event| %>
 
-<% else %>
+				<% if event.event_date == @current_day %>
 
-<p>
-No events were found
-</p>
+				<%= tag("tr", {class: "clickable_row",
+					data: { url: "/events/#{event[:id]}" }}, true) %>
 
-<% end #if %>
+
+				<td><%= event.title %><br/>
+					<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+					<%= link_to "view", event %>
+
+				</td>
+				</tr>
+
+
+
+				<% else %>
+			</table>
+			<hr/>
+			<table class="table table-condensed table-bordered">
+				<% @current_day = event.event_date %>
+				<tr>
+					<th>
+						<%= @current_day.strftime('%a %-d %b %Y') %>
+					</th>
+				</tr>
+				<%= tag("tr", {class: "clickable_row",
+					data: { url: "/events/#{event[:id]}" }}, true) %>
+
+					<td><%= event.title %><br/>
+					<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+					<%= link_to "view", event %>
+				</td>
+			</tr>
+				<% end #if/else block %>
+
+				<% end #loop end %>
+
+			</table>
+
+			<% else %>
+
+			<table class="table table-condensed table-bordered">
+				<tr><td>no events to show</td></tr>
+			</table>
+
+			<% end #if %>
+
+
+		</div>
+
+	</div>
+
+</div>

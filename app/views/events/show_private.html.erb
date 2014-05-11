@@ -1,52 +1,79 @@
-<h2>My private events</h2>
 
 
-<% if !@private_events.empty? %>
+<div class="container-fluid">
+	<div class="row">
 
-<table class="table table-condensed">
+		<div class="col-sm-6 col-sm-offset-1">
+			<h2>My private events</h2>			
+		</div>
 
-	<tr>
-		<th>
-			<%= @current_day %>
-			<!-- current_day.to_formatted_s(:long_ordinal) -->
-		</th>
-	</tr>
+	</div>
 
-	<% @private_events.each do |event| %>
 
-	<% if event.event_date == @current_day %>
 
-	<tr><td><%= event.title %><br/>
-<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
-		<%= link_to "view", event %>
+	<div class="row">
 
-	</td></tr>
+		<div class="col-sm-4 col-sm-offset-1">
 
-	<% else %>
-</table>
-<hr/>
-<table class="table table-condensed">
-	<% @current_day = event.event_date %>
-	<tr>
-		<th>
-			<%= @current_day %>
-		</th>
-	</tr>
-	<tr><td><%= event.title %><br/>
-<!-- 	time conversion <br/> -->
-		<%= link_to "view", event %>
-	</td></tr>
-	<% end #if/else block %>
+			<% if !@private_events.empty? %>
 
-	<% end #loop end %>
+			<table class="table table-condensed table-bordered">
 
-</table>
+				<tr>
+					<th>
+						<%= @current_day.strftime('%a %-d %b %Y') %>
+					</th>
+				</tr>
 
-<% else %>
+				<% @private_events.each do |event| %>
 
-<table class="table table-condensed">
-	<tr><td>no events to show</td></tr>
-</table>
+				<% if event.event_date == @current_day %>
 
-<% end #if %>
+				<%= tag("tr", {class: "clickable_row",
+					data: { url: "/events/#{event[:id]}" }}, true) %>
 
+
+					<td><%= event.title %><br/>
+						<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+					</td>
+				</tr>
+
+
+
+				<% else %>
+			</table>
+			<hr/>
+			<table class="table table-condensed table-bordered">
+				<% @current_day = event.event_date %>
+				<tr>
+					<th>
+						<%= @current_day.strftime('%a %-d %b %Y') %>
+					</th>
+				</tr>
+				<%= tag("tr", {class: "clickable_row",
+					data: { url: "/events/#{event[:id]}" }}, true) %>
+
+					<td><%= event.title %><br/>
+						<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+					</td>
+				</tr>
+				<% end #if/else block %>
+
+				<% end #loop end %>
+
+			</table>
+
+			<% else %>
+
+			<table class="table table-condensed table-bordered">
+				<tr><td>no events to show</td></tr>
+			</table>
+
+			<% end #if %>
+
+
+		</div>
+
+	</div>
+
+</div>
