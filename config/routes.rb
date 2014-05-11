@@ -25,6 +25,7 @@ Planner::Application.routes.draw do
 resources :events do
   collection do
     get  :search
+    get  :show_private
     #post  :new_search
     #get  :show_search
   end

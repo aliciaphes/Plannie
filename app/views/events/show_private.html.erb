@@ -1,24 +1,23 @@
-<h2>My planning</h2>
+<h2>My private events</h2>
 
 
-<%= "#{@events_found.length} events found" %>
-
-<% if !@events_found.empty? %>
+<% if !@private_events.empty? %>
 
 <table class="table table-condensed">
 
 	<tr>
 		<th>
 			<%= @current_day %>
+			<!-- current_day.to_formatted_s(:long_ordinal) -->
 		</th>
 	</tr>
 
-	<% @events_found.each do |event| %>
+	<% @private_events.each do |event| %>
 
 	<% if event.event_date == @current_day %>
 
 	<tr><td><%= event.title %><br/>
-		<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
 		<%= link_to "view", event %>
 
 	</td></tr>
@@ -34,7 +33,7 @@
 		</th>
 	</tr>
 	<tr><td><%= event.title %><br/>
-		<!-- 	time conversion <br/> -->
+<!-- 	time conversion <br/> -->
 		<%= link_to "view", event %>
 	</td></tr>
 	<% end #if/else block %>
@@ -45,8 +44,9 @@
 
 <% else %>
 
-<p>
-No events were found
-</p>
+<table class="table table-condensed">
+	<tr><td>no events to show</td></tr>
+</table>
 
 <% end #if %>
+

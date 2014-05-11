@@ -3,7 +3,6 @@ class EventsController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		#@events = Event.all
 		@events = Event.where(email: current_user.email, deleted: false, is_private: false).order(:event_date)
 
 		if !@events.empty?
@@ -87,23 +86,47 @@ iso_begti = @event.begti.strftime("%H%M%S")
 
 
 
-	def search
+	def search #A where query returns an ActiveRecord::Relation
 
-		#search events by title
-		@events_found_by_title = Event.where(["email = ? and deleted = ? and title LIKE ?", "#{current_user.email}", false, "%#{params[:search_this]}%"])
+		@events_found = []
 
-		#Search events by comments
-		@events_found_by_comments = Event.where(["email = ? and deleted = ? and comments LIKE ?", "#{current_user.email}", false, "%#{params[:search_this]}%"])
+		if !params[:search_this].empty?
 
-		#if some event with comments found, append to the first array
-		if !@events_found_by_comments.empty?
-			@events_found_by_title.push(@events_found_by_comments)	
+			#search events by title
+			@events_found = Event.where(["email = ? and deleted = ? and title LIKE ?", "#{current_user.email}", false, "%#{params[:search_this]}%"])
+			#@events_found = Event.where("email = :email AND deleted = :deleted AND title LIKE :pattern",{ email: "#{current_user.email}", deleted: false, pattern: "%#{params[:search_this]}%" })
+
+
+			#Search events by comments
+			events_found_by_comments = Event.where(["email = ? and deleted = ? and comments LIKE ?", "#{current_user.email}", false, "%#{params[:search_this]}%"])
+
+			#if some event with comments found, append to the first array
+			if !events_found_by_comments.empty?
+				@events_found.concat(events_found_by_comments)	
+			end
+
+			#puts "#{@events_found.length} results found"
+
+			if !@events_found.empty?
+				@current_day = @events_found[0].event_date
+			end
 		end
 
-		if !@events_found_by_title.empty?
-			@current_day = @events_found_by_title[0].event_date
-		end
+
 	end
+
+
+	def show_private
+		@private_events = Event.where(email: current_user.email, deleted: false, is_private: true).order(:event_date)
+
+		if !@private_events.empty?
+			@current_day = @private_events[0].event_date
+		end
+
+	end
+
+
+
 
 
 #Private section

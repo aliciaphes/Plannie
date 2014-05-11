@@ -3,12 +3,14 @@
 
 
 <% if @event.errors.any? %>
-	<h5><%= pluralize(@event.errors.count, "error") %> while creating event</h5>
+<h5><%= pluralize(@event.errors.count, "error") %> while creating event</h5>
+<div class="alert alert-danger">
 	<ul>
-	<% @event.errors.full_messages.each do |message| %>
+		<% @event.errors.full_messages.each do |message| %>
 		<li><%= message %></li>
-	<% end %>
+		<% end %>
 	</ul>
+</div>
 <% end %>
 
 
@@ -20,27 +22,27 @@
 </p>
 
 <p>
-<%= f.label :event_date, "Date" %>
-<%= f.date_field(:event_date) %>
+	<%= f.label :event_date, "Date" %>
+	<%= f.date_field(:event_date) %>
 </p>
 
 
 <p>
-<%= f.label :has_length %>
-<%= f.check_box(:has_length) %>
+	<%= f.label :has_length %>
+	<%= f.check_box(:has_length) %>
 </p>
 
 
 <p>
-<%= f.label :begti, "From" %>
-<%= f.time_field(:begti) %>
+	<%= f.label :begti, "From" %>
+	<%= f.time_field(:begti) %>
 
 
 
-<span id="hidden_to_field">
-<%= f.label :endti, "to" %>
-<%= f.time_field(:endti) %>
-</span>
+	<span id="hidden_to_field">
+		<%= f.label :endti, "to" %>
+		<%= f.time_field(:endti) %>
+	</span>
 
 </p>
 

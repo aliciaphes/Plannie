@@ -1,59 +1,98 @@
-<h2>My planning</h2>
+
+<div class="container-fluid">
+	<div class="row">
+
+		<div class="col-sm-6 col-sm-offset-1">
+			<h2>My planning</h2>
+
+			<form class="navbar-form" action="/events/new">
+				<button type="submit" class="btn btn-default">Add</button>
+			</form>
+
+			
+		</div>
+
+	</div>
+
+
+
+	<div class="row">
+
+		<div class="col-sm-4 col-sm-offset-1">
+
+			<% if !@events.empty? %>
+
+			<!-- <% current_day = @events[0].event_date %> -->
+
+			<table class="table table-condensed table-bordered">
+
+				<tr>
+					<th>
+						<%= @current_day.strftime('%a %-d %b %Y') %>
+						<!-- current_day.to_formatted_s(:long_ordinal) -->
+					</th>
+				</tr>
+
+				<% @events.each do |event| %>
+
+				<% if event.event_date == @current_day %>
+
+				<!-- <tr class="clickable_row" data-url=<%= event %>> -->
+				<%= tag("tr", {class: "clickable_row",
+					data: { url: "/events/#{event[:id]}" }}, true) %><!-- true=do not close tag -->
+
+
+				<td><%= event.title %><br/>
+					<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+					<%= link_to "view", event %>
+
+				</td>
+				</tr>
+
+
+
+				<% else %>
+			</table>
+			<hr/>
+			<table class="table table-condensed table-bordered">
+				<% @current_day = event.event_date %>
+				<tr>
+					<th>
+						<%= @current_day.strftime('%a %-d %b %Y') %>
+					</th>
+				</tr>
+				<%= tag("tr", {class: "clickable_row",
+					data: { url: "/events/#{event[:id]}" }}, true) %>
+
+					<td><%= event.title %><br/>
+					<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+					<%= link_to "view", event %>
+				</td>
+			</tr>
+				<% end #if/else block %>
+
+				<% end #loop end %>
+
+			</table>
+
+			<% else %>
+
+			<table class="table table-condensed table-bordered">
+				<tr><td>no events to show</td></tr>
+			</table>
+
+			<% end #if %>
+
+
+		</div>
+
+	</div>
+
+</div>
 
 
 
 
-<%= link_to "Add", new_event_path %>
 
 
-<% if !@events.empty? %>
-
-<!-- <% current_day = @events[0].event_date %> -->
-
-<table border="1">
-
-	<tr>
-		<th>
-			<%= @current_day %>
-			<!-- current_day.to_formatted_s(:long_ordinal) -->
-		</th>
-	</tr>
-
-	<% @events.each do |event| %>
-
-	<% if event.event_date == @current_day %>
-
-	<tr><td><%= event.title %><br/>
-<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
-		<%= link_to "view", event %>
-
-	</td></tr>
-
-	<% else %>
-</table>
-<hr/>
-<table border="1">
-	<% @current_day = event.event_date %>
-	<tr>
-		<th>
-			<%= @current_day %>
-		</th>
-	</tr>
-	<tr><td><%= event.title %><br/>
-<!-- 	time conversion <br/> -->
-		<%= link_to "view", event %>
-	</td></tr>
-	<% end #if/else block %>
-
-	<% end #loop end %>
-
-</table>
-
-<% else %>
-
-<table>
-	<tr><td>no events to show</td></tr>
-</table>
-
-<% end #if %>
 

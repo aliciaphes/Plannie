@@ -9,6 +9,9 @@ class Event < ActiveRecord::Base
 
 	def event_has_length
 	#blank checkbox = false
+
+	puts "validating #{endti} to see if it goes after #{begti}"
+
 		if self.has_length
 			puts "checkbox marked"
 			validates_time :endti, after: :begti, after_message: "must be after start time"
