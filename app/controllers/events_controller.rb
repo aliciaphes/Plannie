@@ -21,9 +21,9 @@ class EventsController < ApplicationController
 #dates	Of the form: START/END where START and END are in ISO8601 format
 #%Y%m%dT%H%MZ
 #&dates=20140127T224000Z/20140320T221500Z
-iso_date  = @event.event_date.strftime("%Y%m%d")
-iso_begti = @event.begti.strftime("%H%M%S")
-		#iso_endti = iso_begti
+		iso_date  = @event.event_date.strftime("%Y%m%d")
+
+		iso_begti = @event.begti.strftime("%H%M%S")
 		iso_endti = @event.endti.strftime("%H%M%S")
 
 		@complete_date = "#{iso_date}T#{iso_begti}Z/#{iso_date}T#{iso_endti}Z"
@@ -36,18 +36,24 @@ iso_begti = @event.begti.strftime("%H%M%S")
 
 
 	def create
-		@event = Event.new(safe_params)
-
-		#if the event has no length, we set endtime=starttime before saving to avoid errors:
-		@event.endti   = @event.begti
-
-		@event.email   = current_user.email
-		@event.deleted = false
-
-		if @event.save
+		if params[:commit] != "Create"
 			redirect_to events_path
 		else
-			render :new
+			@event = Event.new(safe_params)
+
+			@event.email   = current_user.email
+			@event.deleted = false
+
+			#if the event has no length, we set endtime=starttime before saving to avoid errors:
+			if !params[:has_length]
+				@event.endti   = @event.begti
+			end
+
+			if @event.save
+				redirect_to events_path
+			else
+				render :new
+			end
 		end
 	end
 
@@ -59,11 +65,11 @@ iso_begti = @event.begti.strftime("%H%M%S")
 
 
 	def update
-		if params[:cancel]
+		@event = Event.find(params[:id])
+
+		if params[:commit] == "Cancel"
 			redirect_to @event
 		else
-			@event = Event.find(params[:id])
-
 			if @event.update(safe_params)
 				redirect_to @event
 			else
@@ -86,7 +92,8 @@ iso_begti = @event.begti.strftime("%H%M%S")
 
 
 
-	def search #A where query returns an ActiveRecord::Relation
+	def search #A 'where' query returns an ActiveRecord::Relation
+		#Does not search for deleted events
 
 		@events_found = []
 
@@ -117,6 +124,30 @@ iso_begti = @event.begti.strftime("%H%M%S")
 	end
 
 
+	def show_deleted
+		#this returns private and public events
+		@deleted_events = Event.where(email: current_user.email, deleted: true).order(:event_date)
+
+		if !@deleted_events.empty?
+			@current_day = @deleted_events[0].event_date
+		end
+
+	end
+
+
+
+	def restore
+		@event = Event.find(params[:id])
+
+		@event.deleted = false
+
+		if @event.save
+			redirect_to show_deleted_events_path #go to deleted events
+		else
+			redirect_to event_path #display event
+			#I should display error message as well
+		end	
+	end
 
 
 

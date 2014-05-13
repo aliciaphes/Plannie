@@ -1,24 +1,32 @@
-<h2>New event</h2>
+
 
 
 <% if @event.errors.any? %>
-	<h5><%= pluralize(@event.errors.count, "error") %> while creating event</h5>
-	<div class="alert alert-danger">
+<div class="col-sm-6 col-sm-offset-2 alert alert-danger">
+	<%= pluralize(@event.errors.count, "error") %> while creating event
 	<ul>
-	<% @event.errors.full_messages.each do |message| %>
+		<% @event.errors.full_messages.each do |message| %>
 		<li><%= message %></li>
-	<% end %>
+		<% end %>
 	</ul>
 </div>
 <% end %>
 
 
+<div class="container-fluid">
+	<div class="row">
 
-<%= form_for @event do |f| %>
-<p>
-	<%= f.label :title %>
-	<%= f.text_field :title %>
-</p>
+		<div class="col-sm-6 col-sm-offset-2 table_header">
+			<h2>New event</h2>
+		</div>
+
+		<div class="col-sm-6 col-sm-offset-2 calendar bluebox">
+
+			<%= form_for @event do |f| %>
+			<p>
+				<%= f.label :title %>
+				<%= f.text_field :title, size: 40, maxlength: 40 %>
+			</p>
 
 
 <!-- <p>
@@ -28,22 +36,27 @@
 
 
 <p>
-<%= f.label :event_date, "Date" %>
-<%= f.date_field(:event_date) %>
+	<%= f.label :event_date, "Date" %>
+	<%= f.date_field(:event_date) %>
 </p>
 
 
 <p>
-<%= f.label :has_length %>
-<%= f.check_box :has_length %>
+	<%= f.label :has_length %>
+	<%= f.check_box :has_length %>
 </p>
 
 
+
 <p>
-<%= f.label :begti, "From" %>
-<%= f.time_field(:begti) %>
-<%= f.label :endti, "to" %>
-<%= f.time_field(:endti) %>
+	<label for="event_begti" id="time_label">From</label>
+	<%= f.time_field(:begti) %>
+
+	<span id="hidden_to_field">
+		<%= f.label :endti, "to" %>
+		<%= f.time_field(:endti) %>
+	</span>
+
 </p>
 
 
@@ -52,11 +65,14 @@
 	<%= f.check_box :is_private %>
 </p>
 
-<p>
-	<%= f.label :comments %>
-	<%= f.text_area :comments %>
-</p>
+<%= f.label :comments %><br/>
+<%= f.text_area :comments %>
 
-<br/>
-<%= f.submit "Create" %>
+<br/><br/>
+<%= f.submit "Create", class: "btn btn-default" %>
+<%= f.submit "Cancel", class: "btn btn-default" %>
 <% end %>
+
+</div>
+</div>
+</div>

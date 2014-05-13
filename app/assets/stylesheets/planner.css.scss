@@ -4,12 +4,18 @@
 
 @import "bootstrap";
 
+body {
+  font-family: 'Montserrat';
+  font-size: 14px;
+  //color: black;
+}
+
 .clickable_row{
 	cursor: pointer;
 }
 
 .row_hovered{
-	background-color: LightSeaGreen;
+	background-color: #777777; //LightSeaGreen
 }
 
 .calendar{
@@ -19,7 +25,31 @@
 textarea {
         //border-style: none;
         //border-color: Transparent;
-        background: transparent;
         //overflow: auto;
         //outline: none;
+
+
+        //background: transparent;
       }
+
+.next_to{
+        float: right;
+}
+
+.bluebox{
+background-color: #E7E7E7; //6B9EC0, 567E9A
+padding: 20px;
+}
+
+.bluenavbar{
+//background-color: #7FBCDA;
+}
+
+.table_header{
+  background-color: #777777;
+}
+
+
+.menu_icon{
+  padding-right: 8px;
+}

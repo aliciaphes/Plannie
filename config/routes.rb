@@ -22,13 +22,15 @@ Planner::Application.routes.draw do
 
 	#get '/events/search/', to: 'events#search', as: "search"
 
-resources :events do
-  collection do
-    get  :search
-    get  :show_private
-    #post  :new_search
-    #get  :show_search
-  end
-end
+	resources :events do
+	  collection do
+	    get :search
+	    get :show_private
+	    get :show_deleted
+	    #get :restore
+	  end
+	end
+
+	get '/events/:id/restore', to: 'events#restore', as: "restore"
 
 end

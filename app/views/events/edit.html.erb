@@ -1,10 +1,7 @@
 
-<h2>Edit "<%= @event.title %>"</h2>
-
-
 <% if @event.errors.any? %>
-<h5><%= pluralize(@event.errors.count, "error") %> while creating event</h5>
-<div class="alert alert-danger">
+<div class="col-sm-6 col-sm-offset-2 alert alert-danger">
+	<%= pluralize(@event.errors.count, "error") %> while creating event
 	<ul>
 		<% @event.errors.full_messages.each do |message| %>
 		<li><%= message %></li>
@@ -13,12 +10,20 @@
 </div>
 <% end %>
 
+<div class="container-fluid">
+	<div class="row">
+
+		<div class="col-sm-6 col-sm-offset-2 table_header">
+
+<h2>Edit "<%= @event.title %>"</h2>
+</div>
 
 
+<div class="col-sm-6 col-sm-offset-2 calendar bluebox">
 <%= form_for @event do |f| %>
 <p>
 	<%= f.label :title %>
-	<%= f.text_field :title %>
+	<%= f.text_field :title, size: 40, maxlength: 40 %>
 </p>
 
 <p>
@@ -34,7 +39,7 @@
 
 
 <p>
-	<%= f.label :begti, "From" %>
+	<label for="event_begti" id="time_label">From</label>
 	<%= f.time_field(:begti) %>
 
 
@@ -51,13 +56,16 @@
 	<%= f.check_box(:is_private) %>
 </p>
 
-<p>
-	<%= f.label :comments %>
-	<%= f.text_area :comments %>
-</p>
 
-<br/>
-<%= f.submit "update" %>
-<%= f.submit :cancel %>
+	<%= f.label :comments %><br/>
+	<%= f.text_area :comments %>
+
+
+<br/><br/>
+<%= f.submit "Update", class: "btn btn-default" %>
+<%= f.submit "Cancel", class: "btn btn-default" %>
 <% end %>
 
+</div>
+</div>
+</div>

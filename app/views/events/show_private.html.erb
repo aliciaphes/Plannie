@@ -1,26 +1,23 @@
 
-
 <div class="container-fluid">
 	<div class="row">
 
-		<div class="col-sm-6 col-sm-offset-1">
+		<div class="col-sm-4 col-sm-offset-2">
 			<h2>My private events</h2>			
 		</div>
 
 	</div>
 
-
-
 	<div class="row">
 
-		<div class="col-sm-4 col-sm-offset-1">
+		<div class="col-sm-4 col-sm-offset-2 bluebox">
 
 			<% if !@private_events.empty? %>
 
 			<table class="table table-condensed table-bordered">
 
 				<tr>
-					<th>
+					<th class="table_header">
 						<%= @current_day.strftime('%a %-d %b %Y') %>
 					</th>
 				</tr>
@@ -34,7 +31,11 @@
 
 
 					<td><%= event.title %><br/>
-						<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+						<%= event.begti.strftime("%I:%M %P") %>
+						<% if event.has_length %>
+						-<%= event.endti.strftime("%I:%M %P") %>
+						<% end %>
+						<br/>
 					</td>
 				</tr>
 
@@ -42,11 +43,11 @@
 
 				<% else %>
 			</table>
-			<hr/>
+			<!-- <hr/> -->
 			<table class="table table-condensed table-bordered">
 				<% @current_day = event.event_date %>
 				<tr>
-					<th>
+					<th class="table_header">
 						<%= @current_day.strftime('%a %-d %b %Y') %>
 					</th>
 				</tr>
@@ -54,7 +55,11 @@
 					data: { url: "/events/#{event[:id]}" }}, true) %>
 
 					<td><%= event.title %><br/>
-						<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
+						<%= event.begti.strftime("%I:%M %P") %>
+						<% if event.has_length %>
+						-<%= event.endti.strftime("%I:%M %P") %>
+						<% end %>
+						<br/>
 					</td>
 				</tr>
 				<% end #if/else block %>

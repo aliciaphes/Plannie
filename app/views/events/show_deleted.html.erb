@@ -2,8 +2,8 @@
 <div class="container-fluid">
 	<div class="row">
 
-		<div class="col-sm-6 col-sm-offset-2">
-			<h2><%= pluralize(@events_found.length, "event") %> containing "<%= "#{params[:search_this]}" %>"</h2>			
+		<div class="col-sm-4 col-sm-offset-2">
+			<h2>Deleted events</h2>			
 		</div>
 
 	</div>
@@ -12,7 +12,7 @@
 
 		<div class="col-sm-4 col-sm-offset-2 bluebox">
 
-			<% if !@events_found.empty? %>
+			<% if !@deleted_events.empty? %>
 
 			<table class="table table-condensed table-bordered">
 
@@ -22,7 +22,7 @@
 					</th>
 				</tr>
 
-				<% @events_found.each do |event| %>
+				<% @deleted_events.each do |event| %>
 
 				<% if event.event_date == @current_day %>
 
@@ -30,16 +30,16 @@
 					data: { url: "/events/#{event[:id]}" }}, true) %>
 
 
-				<td><%= event.title %><br/>
-					<%= event.begti.strftime("%I:%M %P") %>-<%= event.endti.strftime("%I:%M %P") %><br/>
-				</td>
+					<td><%= event.title %><br/>
+						<%= event.begti.strftime("%I:%M %P") %>-<%= event.endti.strftime("%I:%M %P") %><br/>
+					</td>
 				</tr>
 
 
 
 				<% else %>
 			</table>
-
+			<!-- <hr/> -->
 			<table class="table table-condensed table-bordered">
 				<% @current_day = event.event_date %>
 				<tr>
@@ -51,10 +51,9 @@
 					data: { url: "/events/#{event[:id]}" }}, true) %>
 
 					<td><%= event.title %><br/>
-					<%= event.begti.strftime("%I:%M %P") %>-<%= event.endti.strftime("%I:%M %P") %>
-					<br/>
-				</td>
-			</tr>
+						<%= event.begti.strftime("%I:%M %P") %>-<%= event.endti.strftime("%I:%M %P") %><br/>
+					</td>
+				</tr>
 				<% end #if/else block %>
 
 				<% end #loop end %>
@@ -68,7 +67,6 @@
 			</table>
 
 			<% end #if %>
-
 
 		</div>
 

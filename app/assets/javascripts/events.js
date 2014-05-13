@@ -6,8 +6,8 @@
 $(document).ready(function() {
 
 
-	//$("#event_has_length").on('click', function () {
-		$(document).on('click', "#event_has_length", function () {
+	$("#event_has_length").on('click', function () {
+	//$(document).on('click', "#event_has_length", function () {
 
 		//need to use the event on DOCUMENT because the whole page gets refreshed. Stackoverflow: the .on should be executed on a parent element that doesnt change or document.
 
@@ -23,40 +23,28 @@ $(document).ready(function() {
 
 
 		if($("#event_has_length").is(':checked')){
-		//alert("is checked");
-		$("#hidden_to_field").show();
-	}		
-	else $("#hidden_to_field").hide();
+			//alert("is checked");
+			$("#hidden_to_field").show();
+			$("#time_label").html("From");
+		}		
+		else{
+			$("#hidden_to_field").hide();
+			$("#time_label").html("At");
+		}
 
 
 
 });
 
 
-/**
-	if($("#event_has_length").is(':checked')){
-		//alert("is checked");
-		$("#hidden_to_field").show();
-	}		
-	else $("#hidden_to_field").hide();
-	*/	
-
-
-
-
-/*
-$("#event_has_length").each(function () {
-            $this = $(this);
-            if ($this.is(':checked')) {
-            	alert("is checked");
-                $("#hidden_to_field").show();
-            } else {
-            	alert("is NOT checked");
-                $("#hidden_to_field").hide();
-            }
-});
-*/
-
+		if($("#event_has_length").is(':checked')){
+			$("#hidden_to_field").show();
+			$("#time_label").html("From");
+		}		
+		else{
+			$("#hidden_to_field").hide();
+			$("#time_label").html("At");
+		}
 
 
 
@@ -75,6 +63,12 @@ $("#event_has_length").each(function () {
 	  }
 	);
 
+	$("#popup").on('click', function () {
+//use http://jqueryui.com/dialog/#modal-form
+//or angular: http://codepen.io/ionic/pen/zkmhJ?editors=101
+// or this: http://jsfiddle.net/cUfYw/
+    });
+ 
 
 
 

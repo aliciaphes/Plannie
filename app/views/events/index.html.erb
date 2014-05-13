@@ -2,7 +2,7 @@
 <div class="container-fluid">
 	<div class="row">
 
-		<div class="col-sm-6 col-sm-offset-1">
+		<div class="col-sm-4 col-sm-offset-2">
 			<h2>My planning</h2>
 
 			<form class="navbar-form" action="/events/new">
@@ -14,7 +14,7 @@
 
 	<div class="row">
 
-		<div class="col-sm-4 col-sm-offset-1">
+		<div class="col-sm-4 col-sm-offset-2 bluebox">
 
 			<% if !@events.empty? %>
 
@@ -23,7 +23,7 @@
 			<table class="table table-condensed table-bordered">
 
 				<tr>
-					<th>
+					<th class="table_header">
 						<%= @current_day.strftime('%a %-d %b %Y') %>
 						<!-- current_day.to_formatted_s(:long_ordinal) -->
 					</th>
@@ -38,22 +38,28 @@
 					data: { url: "/events/#{event[:id]}" }}, true) %><!-- true=do not close tag -->
 
 
-				<td><%= event.title %><br/>
-					<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
-					<!-- <%= link_to "view", event %> -->
+					<td><%= event.title %><br/>
 
-				</td>
+						<%= event.begti.strftime("%I:%M %P") %>
+						<% if event.has_length %>
+						-<%= event.endti.strftime("%I:%M %P") %>
+						<% end %>
+
+						<br/>
+						<!-- <%= link_to "view", event %> -->
+
+					</td>
 				</tr>
 
 
 
 				<% else %>
 			</table>
-			<hr/>
+			<!-- <hr/> -->
 			<table class="table table-condensed table-bordered">
 				<% @current_day = event.event_date %>
 				<tr>
-					<th>
+					<th class="table_header">
 						<%= @current_day.strftime('%a %-d %b %Y') %>
 					</th>
 				</tr>
@@ -61,10 +67,15 @@
 					data: { url: "/events/#{event[:id]}" }}, true) %>
 
 					<td><%= event.title %><br/>
-					<%= event.begti.strftime("%H:%M%P") %>-<%= event.endti.strftime("%H:%M%P") %><br/>
-					<!-- <%= link_to "view", event %> -->
-				</td>
-			</tr>
+						<%= event.begti.strftime("%I:%M %P") %>
+
+						<% if event.has_length %>
+						-<%= event.endti.strftime("%I:%M %P") %>
+						<% end %>
+						<br/>
+						<!-- <%= link_to "view", event %> -->
+					</td>
+				</tr>
 				<% end #if/else block %>
 
 				<% end #loop end %>
