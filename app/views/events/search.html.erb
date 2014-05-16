@@ -1,4 +1,5 @@
 
+<!-- Error section -->
 <div class="container-fluid">
 	<div class="row">
 
@@ -8,9 +9,10 @@
 
 	</div>
 
+
 	<div class="row">
 
-		<div class="col-sm-4 col-sm-offset-2 bluebox">
+		<div class="col-sm-4 col-sm-offset-2 greybox">
 
 			<% if !@events_found.empty? %>
 
@@ -26,49 +28,45 @@
 
 				<% if event.event_date == @current_day %>
 
-				<%= tag("tr", {class: "clickable_row",
-					data: { url: "/events/#{event[:id]}" }}, true) %>
+					<%= tag("tr", {class: "clickable_row",
+						data: { url: "/events/#{event[:id]}" }}, true) %>
 
-
-				<td><%= event.title %><br/>
-					<%= event.begti.strftime("%I:%M %P") %>-<%= event.endti.strftime("%I:%M %P") %><br/>
-				</td>
-				</tr>
-
-
+						<td><%= event.title %><br/>
+							<%= event.begti.strftime("%I:%M %P") %>-<%= event.endti.strftime("%I:%M %P") %><br/>
+						</td>
+					</tr>
 
 				<% else %>
-			</table>
+					</table>
 
-			<table class="table table-condensed table-bordered">
-				<% @current_day = event.event_date %>
-				<tr>
-					<th class="table_header">
-						<%= @current_day.strftime('%a %-d %b %Y') %>
-					</th>
-				</tr>
-				<%= tag("tr", {class: "clickable_row",
-					data: { url: "/events/#{event[:id]}" }}, true) %>
+					<table class="table table-condensed table-bordered">
+						<% @current_day = event.event_date %>
+						<tr>
+							<th class="table_header">
+								<%= @current_day.strftime('%a %-d %b %Y') %>
+							</th>
+						</tr>
+						<%= tag("tr", {class: "clickable_row",
+							data: { url: "/events/#{event[:id]}" }}, true) %>
 
-					<td><%= event.title %><br/>
-					<%= event.begti.strftime("%I:%M %P") %>-<%= event.endti.strftime("%I:%M %P") %>
-					<br/>
-				</td>
-			</tr>
+							<td><%= event.title %><br/>
+							<%= event.begti.strftime("%I:%M %P") %>-<%= event.endti.strftime("%I:%M %P") %><br/>
+							</td>
+						</tr>
+
 				<% end #if/else block %>
 
-				<% end #loop end %>
+			<% end #loop end %>
 
 			</table>
 
 			<% else %>
 
-			<table class="table table-condensed table-bordered">
-				<tr><td>no events to show</td></tr>
-			</table>
+				<table class="table table-condensed table-bordered">
+					<tr><td>no events to show</td></tr>
+				</table>
 
 			<% end #if %>
-
 
 		</div>
 

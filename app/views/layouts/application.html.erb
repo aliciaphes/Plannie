@@ -12,11 +12,13 @@
 <body>
 
 
+  <!-- Display menu only if the user is logged: -->
   <% if !current_user.nil? %>
 
-  <nav class="navbar navbar-default bluenavbar" role="navigation">
+  <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
+        <!-- hamburger button for mobile -->
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
@@ -26,17 +28,19 @@
         <%= link_to "Plannie", events_path, class: "navbar-brand glyphicon glyphicon-calendar" %>
       </div>
 
+
+      <!-- Menu bar -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <!-- Search -->
         <ul class="nav navbar-nav">
           <li>
             <form class="navbar-form" action="/events/search">
-              <!-- <div class="form-group"> -->
               <input type="text" name="search_this" class="form-control" placeholder="Search event...">
-              <!-- </div> -->
               <button type="submit" value="search" class="btn btn-default glyphicon glyphicon-search">Search</button>
             </form>
           </li>
 
+          <!-- Dropdown menu -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
             <ul class="dropdown-menu">

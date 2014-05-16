@@ -14,13 +14,10 @@ class EventsController < ApplicationController
 	def show #show a particular event
 		@event = Event.find(params[:id])
 
+		#The 'export' to Google calendar needs the date in the following format:
+		#START/END where START and END are in ISO8601 format:
+		#example = 20140127T224000Z/20140320T221500Z
 
-#<span><%= #link_to "Create Google Calendar event", gevent_path %></span>
-#<span><%= link_to "Create Google Calendar event", "http://www.google.com/calendar", target: "_blank" %></span> -->
-
-#dates	Of the form: START/END where START and END are in ISO8601 format
-#%Y%m%dT%H%MZ
-#&dates=20140127T224000Z/20140320T221500Z
 		iso_date  = @event.event_date.strftime("%Y%m%d")
 
 		iso_begti = @event.begti.strftime("%H%M%S")
@@ -92,18 +89,17 @@ class EventsController < ApplicationController
 
 
 
-	def search #A 'where' query returns an ActiveRecord::Relation
-		#Does not search for deleted events
+	def search
+		#This search method does not search for deleted events
 
 		@events_found = []
 
 		if !params[:search_this].empty?
 
 			#search events by title and comments (using OR)
+			#The 'where' query returns an ActiveRecord::Relation
 			@events_found = Event.where(["email = ? and deleted = ? and (title LIKE ? or comments LIKE ?)", "#{current_user.email}", false, "%#{params[:search_this]}%", "%#{params[:search_this]}%"]).order(:event_date)
 			#@events_found = Event.where("email = :email AND deleted = :deleted AND title LIKE :pattern",{ email: "#{current_user.email}", deleted: false, pattern: "%#{params[:search_this]}%" })
-
-			#puts "#{@events_found.length} results found"
 
 			if !@events_found.empty?
 				@current_day = @events_found[0].event_date

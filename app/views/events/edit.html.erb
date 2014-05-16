@@ -1,4 +1,5 @@
 
+<!-- Error section -->
 <% if @event.errors.any? %>
 <div class="col-sm-6 col-sm-offset-2 alert alert-danger">
 	<%= pluralize(@event.errors.count, "error") %> while creating event
@@ -10,62 +11,60 @@
 </div>
 <% end %>
 
+
 <div class="container-fluid">
 	<div class="row">
 
 		<div class="col-sm-6 col-sm-offset-2 table_header">
-
-<h2>Edit "<%= @event.title %>"</h2>
-</div>
-
-
-<div class="col-sm-6 col-sm-offset-2 calendar bluebox">
-<%= form_for @event do |f| %>
-<p>
-	<%= f.label :title %>
-	<%= f.text_field :title, size: 40, maxlength: 40 %>
-</p>
-
-<p>
-	<%= f.label :event_date, "Date" %>
-	<%= f.date_field(:event_date) %>
-</p>
+			<h2>Edit "<%= @event.title %>"</h2>
+		</div>
 
 
-<p>
-	<%= f.label :has_length %>
-	<%= f.check_box(:has_length) %>
-</p>
+		<div class="col-sm-6 col-sm-offset-2 calendar greybox">
+			<%= form_for @event do |f| %>
+				<p>
+					<%= f.label :title %>
+					<%= f.text_field :title, size: 40, maxlength: 40 %>
+				</p>
+
+				<p>
+					<%= f.label :event_date, "Date" %>
+					<%= f.date_field(:event_date) %>
+				</p>
+
+				<p>
+					<%= f.label :has_length %>
+					<%= f.check_box(:has_length) %>
+				</p>
 
 
-<p>
-	<label for="event_begti" id="time_label">From</label>
-	<%= f.time_field(:begti) %>
+				<p>
+					<label for="event_begti" id="time_label">From</label>
+					<%= f.time_field(:begti) %>
 
 
+					<span id="hidden_to_field">
+						<%= f.label :endti, "to" %>
+						<%= f.time_field(:endti) %>
+					</span>
+				</p>
 
-	<span id="hidden_to_field">
-		<%= f.label :endti, "to" %>
-		<%= f.time_field(:endti) %>
-	</span>
+				<p>
+					<%= f.label :is_private, "Private event" %>
+					<%= f.check_box(:is_private) %>
+				</p>
 
-</p>
+				<p>
+					<%= f.label :comments %><br/>
+					<%= f.text_area :comments %>
+				</p>
 
-<p>
-	<%= f.label :is_private, "Private event" %>
-	<%= f.check_box(:is_private) %>
-</p>
+				<br/>
+				<%= f.submit "Update", class: "btn btn-default" %>
+				<%= f.submit "Cancel", class: "btn btn-default" %>
 
+			<% end %> <!-- end of form -->
 
-	<%= f.label :comments %><br/>
-	<%= f.text_area :comments %>
-
-
-<br/><br/>
-<%= f.submit "Update", class: "btn btn-default" %>
-<%= f.submit "Cancel", class: "btn btn-default" %>
-<% end %>
-
-</div>
-</div>
+		</div>
+	</div>
 </div>

@@ -1,15 +1,14 @@
 
-
-
+<!-- Error section -->
 <% if @event.errors.any? %>
-<div class="col-sm-6 col-sm-offset-2 alert alert-danger">
-	<%= pluralize(@event.errors.count, "error") %> while creating event
-	<ul>
-		<% @event.errors.full_messages.each do |message| %>
-		<li><%= message %></li>
-		<% end %>
-	</ul>
-</div>
+	<div class="col-sm-6 col-sm-offset-2 alert alert-danger">
+		<%= pluralize(@event.errors.count, "error") %> while creating event
+		<ul>
+			<% @event.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+			<% end %>
+		</ul>
+	</div>
 <% end %>
 
 
@@ -20,59 +19,51 @@
 			<h2>New event</h2>
 		</div>
 
-		<div class="col-sm-6 col-sm-offset-2 calendar bluebox">
+		<div class="col-sm-6 col-sm-offset-2 calendar greybox">
 
 			<%= form_for @event do |f| %>
-			<p>
-				<%= f.label :title %>
-				<%= f.text_field :title, size: 40, maxlength: 40 %>
-			</p>
+				<p>
+					<%= f.label :title %>
+					<%= f.text_field :title, size: 40, maxlength: 40 %>
+				</p>
 
+				<p>
+					<%= f.label :event_date, "Date" %>
+					<%= f.date_field(:event_date) %>
+				</p>
 
-<!-- <p>
-<%= f.label :day_name, "Day name, BORRAR" %>
-<%= f.select :day_name, options_for_select(Date::DAYNAMES) %>
-</p> -->
+				<p>
+					<%= f.label :has_length %>
+					<%= f.check_box :has_length %>
+				</p>
 
+				<p>
+					<label for="event_begti" id="time_label">From</label>
+					<%= f.time_field(:begti) %>
 
-<p>
-	<%= f.label :event_date, "Date" %>
-	<%= f.date_field(:event_date) %>
-</p>
+					<span id="hidden_to_field">
+						<%= f.label :endti, "to" %>
+						<%= f.time_field(:endti) %>
+					</span>
 
+				</p>
 
-<p>
-	<%= f.label :has_length %>
-	<%= f.check_box :has_length %>
-</p>
+				<p>
+					<%= f.label :is_private, "Private event" %>
+					<%= f.check_box :is_private %>
+				</p>
 
+				<p>
+				<%= f.label     :comments %><br/>
+				<%= f.text_area :comments %>
+				</p>
 
+				<br/>
+				<%= f.submit "Create", class: "btn btn-default" %>
+				<%= f.submit "Cancel", class: "btn btn-default" %>
 
-<p>
-	<label for="event_begti" id="time_label">From</label>
-	<%= f.time_field(:begti) %>
+			<% end %>
 
-	<span id="hidden_to_field">
-		<%= f.label :endti, "to" %>
-		<%= f.time_field(:endti) %>
-	</span>
-
-</p>
-
-
-<p>
-	<%= f.label :is_private, "Private event" %>
-	<%= f.check_box :is_private %>
-</p>
-
-<%= f.label :comments %><br/>
-<%= f.text_area :comments %>
-
-<br/><br/>
-<%= f.submit "Create", class: "btn btn-default" %>
-<%= f.submit "Cancel", class: "btn btn-default" %>
-<% end %>
-
-</div>
-</div>
+		</div>
+	</div>
 </div>

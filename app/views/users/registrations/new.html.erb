@@ -4,27 +4,35 @@
 
 		<br/>
 
-		<div class="col-sm-3 col-sm-offset-1 bluebox">
+		<div class="col-sm-3 col-sm-offset-1 greybox">
 
-		<h3>Sign up</h3>
+			<h3>Sign up</h3>
 
-		<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-		  <%= devise_error_messages! %>
+			<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+			  <%= devise_error_messages! %>
 
-		  <div><%= f.label :email %><br />
-		  <%= f.email_field :email, autofocus: true %></div>
+			  <div>
+			  	<%= f.label :email %><br />
+			  	<%= f.email_field :email, autofocus: true %>
+				</div>
 
-		  <div><%= f.label :password %><br />
-		    <%= f.password_field :password, autocomplete: "off" %></div>
+			  <div>
+			  	<%= f.label :password %><br />
+			    <%= f.password_field :password, autocomplete: "off" %>
+			  </div>
 
-		  <div><%= f.label :password_confirmation %><br />
-		    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
-		<br/>
-		  <div><%= f.submit "Sign up", class: "btn btn-default" %></div>
-		<% end %>
+			  <div><%= f.label :password_confirmation %><br />
+			    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+			  </div>
+				<br/>
+			  <div>
+			  	<%= f.submit "Sign up", class: "btn btn-default" %>
+			  </div>
 
-<%= render "devise/shared/links" %>
+			<% end #end form %>
 
-</div>
-</div>
+			<%= render "devise/shared/links" %>
+
+		</div>
+	</div>
 </div>

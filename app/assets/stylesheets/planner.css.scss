@@ -7,7 +7,6 @@
 body {
   font-family: 'Montserrat';
   font-size: 14px;
-  //color: black;
 }
 
 .clickable_row{
@@ -15,7 +14,7 @@ body {
 }
 
 .row_hovered{
-	background-color: #777777; //LightSeaGreen
+	background-color: #777777;
 }
 
 .calendar{
@@ -36,14 +35,12 @@ textarea {
         float: right;
 }
 
-.bluebox{
+.greybox{
 background-color: #E7E7E7; //6B9EC0, 567E9A
 padding: 20px;
 }
 
-.bluenavbar{
-//background-color: #7FBCDA;
-}
+
 
 .table_header{
   background-color: #777777;
