@@ -7,6 +7,7 @@ class EventsController < ApplicationController
 
 		if !@events.empty?
 			@current_day = @events[0].event_date
+			@to_display  = "I"
 		end
 	end
 
@@ -91,43 +92,46 @@ class EventsController < ApplicationController
 
 	def search
 		#This search method does not search for deleted events
+		#It is also case sensitive
 
-		@events_found = []
+		@events = []
 
 		if !params[:search_this].empty?
 
 			#search events by title and comments (using OR)
 			#The 'where' query returns an ActiveRecord::Relation
-			@events_found = Event.where(["email = ? and deleted = ? and (title LIKE ? or comments LIKE ?)", "#{current_user.email}", false, "%#{params[:search_this]}%", "%#{params[:search_this]}%"]).order(:event_date)
-			#@events_found = Event.where("email = :email AND deleted = :deleted AND title LIKE :pattern",{ email: "#{current_user.email}", deleted: false, pattern: "%#{params[:search_this]}%" })
+			@events = Event.where(["email = ? and deleted = ? and (title LIKE ? or comments LIKE ?)", "#{current_user.email}", false, "%#{params[:search_this]}%", "%#{params[:search_this]}%"]).order(:event_date)
+			#@events = Event.where("email = :email AND deleted = :deleted AND title LIKE :pattern",{ email: "#{current_user.email}", deleted: false, pattern: "%#{params[:search_this]}%" })
 
-			if !@events_found.empty?
-				@current_day = @events_found[0].event_date
+			if !@events.empty?
+				@current_day = @events[0].event_date
+				@to_display  = "S"
 			end
 		end
-
-
+		render "index"
 	end
 
 
 	def show_private
-		@private_events = Event.where(email: current_user.email, deleted: false, is_private: true).order(:event_date)
+		@events = Event.where(email: current_user.email, deleted: false, is_private: true).order(:event_date)
 
-		if !@private_events.empty?
-			@current_day = @private_events[0].event_date
+		if !@events.empty?
+			@current_day = @events[0].event_date
+			@to_display  = "P"
 		end
-
+		render "index"
 	end
 
 
 	def show_deleted
 		#this returns private and public events
-		@deleted_events = Event.where(email: current_user.email, deleted: true).order(:event_date)
+		@events = Event.where(email: current_user.email, deleted: true).order(:event_date)
 
-		if !@deleted_events.empty?
-			@current_day = @deleted_events[0].event_date
+		if !@events.empty?
+			@current_day = @events[0].event_date
+			@to_display  = "D"
 		end
-
+		render "index"
 	end
 
 

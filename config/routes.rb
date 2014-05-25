@@ -27,7 +27,6 @@ Planner::Application.routes.draw do
 	    get :search
 	    get :show_private
 	    get :show_deleted
-	    #get :restore
 	  end
 	end
 

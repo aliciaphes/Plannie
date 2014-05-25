@@ -1,17 +1,43 @@
 
+
 <div class="container-fluid">
 	<div class="row">
 
-		<div class="col-sm-4 col-sm-offset-2">
-			<h2>My planning</h2>
+		<% case @to_display %>
+			<% when "I" #index %>
 
-			<!-- 'Add' button to create a new event -->
-			<form class="navbar-form" action="/events/new">
-				<button type="submit" class="btn btn-default">Add</button>
-			</form>			
-		</div>
+						<div class="col-sm-4 col-sm-offset-2">
+							<h2>My planning</h2>
 
-	</div>
+							<!-- 'Add' button to create a new event -->
+							<form class="navbar-form" action="/events/new">
+								<button type="submit" class="btn btn-default">Add</button>
+							</form>			
+						</div>
+
+					</div>
+			<% when "S" #search %>
+
+						<div class="col-sm-6 col-sm-offset-2">
+							<h2><%= pluralize(@events.length, "event") %> containing "<%= "#{params[:search_this]}" %>"</h2>			
+						</div>
+
+					</div>
+			<% when "P" #private %>
+
+						<div class="col-sm-4 col-sm-offset-2">
+							<h2>My private events</h2>			
+						</div>
+
+					</div>
+			<% when "D" #deleted %>
+
+						<div class="col-sm-4 col-sm-offset-2">
+								<h2>Deleted events</h2>			
+						</div>
+
+					</div>			
+		<% end #end case %>
 
 
 	<!-- Now we populate the table that contains all the events -->
@@ -80,7 +106,7 @@
 			<% else #table is empty %>
 
 			<table class="table table-condensed table-bordered">
-				<tr><td>no events to show</td></tr>
+				<tr><td>No events to show</td></tr>
 			</table>
 
 			<% end #if %>
