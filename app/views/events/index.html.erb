@@ -4,100 +4,109 @@
 	<div class="row">
 
 		<% case @to_display %>
-			<% when "I" #index %>
+		<% when "I" #index %>
 
-						<div class="col-sm-4 col-sm-offset-2">
-							<h2>My planning</h2>
+		<div class="col-sm-4 col-sm-offset-2">
+			<h2>My planning</h2>
 
-							<!-- 'Add' button to create a new event -->
-							<form class="navbar-form" action="/events/new">
-								<button type="submit" class="btn btn-default">Add</button>
-							</form>			
-						</div>
+			<!-- 'Add' button to create a new event -->
+			<form class="navbar-form" action="/events/new">
+				<button type="submit" class="btn btn-default">Add</button>
+			</form>			
+		</div>
 
-					</div>
-			<% when "S" #search %>
+	</div>
+	<% when "S" #search %>
 
-						<div class="col-sm-6 col-sm-offset-2">
-							<h2><%= pluralize(@events.length, "event") %> containing "<%= "#{params[:search_this]}" %>"</h2>			
-						</div>
+	<div class="col-sm-6 col-sm-offset-2">
+		<!-- <h2><%= pluralize(@events.length, "event") %> containing "<%= "#{params[:search_this]}" %>"</h2> -->
 
-					</div>
-			<% when "P" #private %>
+		<h2 class="search" data-search-term="<%= @search_term %>"><%= pluralize(@events.length, "event") %> containing "<%= @search_term %>"</h2>
+	</div>
 
-						<div class="col-sm-4 col-sm-offset-2">
-							<h2>My private events</h2>			
-						</div>
+</div>
+<% when "P" #private %>
 
-					</div>
-			<% when "D" #deleted %>
+<div class="col-sm-4 col-sm-offset-2">
+	<h2>My private events</h2>			
+</div>
 
-						<div class="col-sm-4 col-sm-offset-2">
-								<h2>Deleted events</h2>			
-						</div>
+</div>
+<% when "D" #deleted %>
 
-					</div>			
-		<% end #end case %>
+<div class="col-sm-4 col-sm-offset-2">
+	<h2>Deleted events</h2>			
+</div>
+
+</div>			
+<% end #end case %>
 
 
-	<!-- Now we populate the table that contains all the events -->
-	<!-- This receives the table with the events ORDERED BY DATE -->
-	<div class="row">
+<!-- Now we populate the table that contains all the events -->
+<!-- This receives the table with the events ORDERED BY DATE -->
+<div class="row">
 
-		<div class="col-sm-4 col-sm-offset-2 greybox">
+	<div class="col-sm-4 col-sm-offset-2 greybox">
 
-			<% if !@events.empty? %>
-			<!-- <% current_day = @events[0].event_date %> -->
+		<% if !@events.empty? %>
+		<!-- <% current_day = @events[0].event_date %> -->
 
+		<table class="table table-condensed table-bordered">
+
+			<tr>
+				<th class="table_header">
+					<%= @current_day.strftime('%a %-d %b %Y') %>
+				</th>
+			</tr>
+
+			<% @events.each do |event| %>
+
+			<% if event.event_date == @current_day %>
+
+			<!-- Create an open (true=do not close tag) tr tag -->
+			<%= tag("tr", {class: "clickable_row",
+				data: { url: "/events/#{event[:id]}" }}, true) %>
+
+
+				<% if @to_display = "S" %>
+					<td class="search">
+				<% else %>
+					<td>
+				<% end %>
+					
+					<span class="search_title"><span class="search"><%= event.title %></span></span><br/>
+
+						<%= event.begti.strftime("%I:%M %P") %>
+						<% if event.has_length %>
+						-<%= event.endti.strftime("%I:%M %P") %>
+						<% end %><br/>
+					</td>
+
+				</tr>
+
+				<% else %>
+			</table>
+			<!-- <hr/> -->
 			<table class="table table-condensed table-bordered">
-
+				<% @current_day = event.event_date %>
 				<tr>
 					<th class="table_header">
 						<%= @current_day.strftime('%a %-d %b %Y') %>
 					</th>
 				</tr>
+				<%= tag("tr", {class: "clickable_row",
+					data: { url: "/events/#{event[:id]}" }}, true) %>
 
-				<% @events.each do |event| %>
+					<td><%= event.title %><br/>
+						<%= event.begti.strftime("%I:%M %P") %>
 
-					<% if event.event_date == @current_day %>
-
-						<!-- Create an open (true=do not close tag) tr tag -->
-						<%= tag("tr", {class: "clickable_row",
-							data: { url: "/events/#{event[:id]}" }}, true) %>
-
-							<td><%= event.title %><br/>
-
-								<%= event.begti.strftime("%I:%M %P") %>
-								<% if event.has_length %>
-								-<%= event.endti.strftime("%I:%M %P") %>
-								<% end %><br/>
-							</td>
-
-						</tr>
-
-					<% else %>
-						</table>
-						<!-- <hr/> -->
-						<table class="table table-condensed table-bordered">
-							<% @current_day = event.event_date %>
-							<tr>
-								<th class="table_header">
-									<%= @current_day.strftime('%a %-d %b %Y') %>
-								</th>
-							</tr>
-							<%= tag("tr", {class: "clickable_row",
-								data: { url: "/events/#{event[:id]}" }}, true) %>
-
-								<td><%= event.title %><br/>
-									<%= event.begti.strftime("%I:%M %P") %>
-
-									<% if event.has_length %>
-									-<%= event.endti.strftime("%I:%M %P") %>
-									<% end %>
-									<br/>
-								</td>
-							</tr>
-					<% end #if/else block %>
+						<% if event.has_length %>
+						-<%= event.endti.strftime("%I:%M %P") %>
+						<% end %>
+						<br/>
+					</td>
+				</tr>
+				<% end #if/else block %>
 
 				<% end #loop end %>
 

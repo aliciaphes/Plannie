@@ -72,4 +72,29 @@ $(document).ready(function() {
 
 
 
+//------------add red color to search term----------------------
+var title = $("span[class='search']").html();
+//alert(title);
+var search_term = $("h2[class='search']").data("search-term");
+//alert(search_term);
+var index = title.indexOf(search_term);
+var found = title.substr(index, search_term.length); //start, length
+var piece = "<span class='red'>"+found+"</span>";
+//alert(piece);
+
+
+//FROM <span class="search">Movie</span>
+// if I search for 'ov' it should change
+//TO   M<span>ov</span>ie
+
+//convert html:
+$("span[class='search_title']").html(title.substr(0, index)+piece+title.substr(index+search_term.length, title.length));
+//------------end of add red color to search term----------------------
+
+
+
+
+
+
+
 }); //document.ready

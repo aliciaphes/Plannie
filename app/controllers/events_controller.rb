@@ -105,6 +105,7 @@ class EventsController < ApplicationController
 
 			if !@events.empty?
 				@current_day = @events[0].event_date
+				@search_term = params[:search_this]
 				@to_display  = "S"
 			end
 		end
