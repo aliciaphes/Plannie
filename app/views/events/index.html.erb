@@ -68,11 +68,7 @@
 				data: { url: "/events/#{event[:id]}" }}, true) %>
 
 
-				<% if @to_display = "S" %>
-					<td class="search">
-				<% else %>
 					<td>
-				<% end %>
 					
 					<span class="search_title"><span class="search"><%= event.title %></span></span><br/>
 
@@ -97,7 +93,11 @@
 				<%= tag("tr", {class: "clickable_row",
 					data: { url: "/events/#{event[:id]}" }}, true) %>
 
-					<td><%= event.title %><br/>
+				<td>
+
+					<span class="search_title">
+						<span class="search"><%= event.title %></span>
+					</span><br/>
 						<%= event.begti.strftime("%I:%M %P") %>
 
 						<% if event.has_length %>
