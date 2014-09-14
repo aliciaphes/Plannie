@@ -7,8 +7,8 @@ class EventsController < ApplicationController
 
 		if !@events.empty?
 			@current_day = @events[0].event_date
-			@to_display  = "I"
 		end
+		@to_display  = "I"
 	end
 
 
