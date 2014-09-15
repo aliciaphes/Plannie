@@ -105,10 +105,10 @@ class EventsController < ApplicationController
 
 			if !@events.empty?
 				@current_day = @events[0].event_date
-				@search_term = params[:search_this]
-				@to_display  = "S"
 			end
 		end
+		@search_term = params[:search_this]
+		@to_display  = "S"
 		render "index"
 	end
 
@@ -118,8 +118,8 @@ class EventsController < ApplicationController
 
 		if !@events.empty?
 			@current_day = @events[0].event_date
-			@to_display  = "P"
 		end
+		@to_display  = "P"
 		render "index"
 	end
 
@@ -130,8 +130,8 @@ class EventsController < ApplicationController
 
 		if !@events.empty?
 			@current_day = @events[0].event_date
-			@to_display  = "D"
 		end
+		@to_display  = "D"
 		render "index"
 	end
 
