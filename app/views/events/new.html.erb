@@ -5,8 +5,15 @@
 		<%= pluralize(@event.errors.count, "error") %> while creating event
 		<ul>
 			<% @event.errors.full_messages.each do |message| %>
-			<li><%= message %></li>
-			<% end %>
+				<!-- use gsub? -->
+				<% if message.include? "Begti" %>
+					<% message["Begti"] = "Begin time" %>
+				<% end %>
+				<% if message.include? "Endti" %>
+					<% message["Endti"] = "End time" %>
+				<% end %>				
+				<li><%= message %></li>
+			<% end %>			
 		</ul>
 	</div>
 <% end %>

@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
-		@events = Event.where(email: current_user.email, deleted: false, is_private: false).order(:event_date)
+		@events = Event.where(email: current_user.email, deleted: false, is_private: false).order(:event_date, :begti, :endti)
 
 		if !@events.empty?
 			@current_day = @events[0].event_date
