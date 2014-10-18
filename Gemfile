@@ -54,7 +54,7 @@ gem 'validates_timeliness', '~> 3.0.14'
 #gem 'google-api-client', require: 'google/api_client'
 gem 'bootstrap-sass'
 
-gem 'rails_12factor', group: :production
+gem 'rails_12factor', group: :production #this gem configures your app to serve static assets
 
 #Database for Active Record:
 #group :development, :test do
