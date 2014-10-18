@@ -105,7 +105,7 @@ function red(){
 	if(search_term != undefined){
 		//console.log("search_term="+search_term);
 		var vari = replaceAll(search_term, "<span>"+search_term+"</span>", title);
-		console.log("vari="+vari);
+		//console.log("vari="+vari);
 		$(this).html(vari);
 
 		$(this).children('span').addClass("red");
