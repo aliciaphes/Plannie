@@ -3,6 +3,10 @@ class EventsController < ApplicationController
 	before_action :authenticate_user!
 
 	def index
+
+		#send email of last sign in
+		PlannieNotifier.last_sign_in.deliver
+
 		@events = Event.where(email: current_user.email, deleted: false, is_private: false).order(:event_date)
 
 		if !@events.empty?
