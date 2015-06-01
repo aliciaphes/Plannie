@@ -40,4 +40,9 @@ Planner::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+<<<<<<< HEAD
+=======
+  # Raises error for missing translations
+  # config.action_view.raise_on_missing_translations = true
+>>>>>>> fafdef139eb85c7f89e8ac08c15cd3e7e9e8a2e3
 end

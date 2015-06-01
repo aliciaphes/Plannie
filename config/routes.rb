@@ -18,13 +18,11 @@ Planner::Application.routes.draw do
 	#resources :events
 	resources :users
 
-	#get '/events/:id/gcreate', to: 'events#gcreate', as: "gevent"
-
-	#get '/events/search/', to: 'events#search', as: "search"
+	#get '/events/:id/gcreate', to: 'events#gcreate', as: "gevent" #google calendar attempt
 
 	resources :events do
 	  collection do
-	    get :search
+	    get :search #get '/events/search/', to: 'events#search', as: "search"
 	    get :show_private
 	    get :show_deleted
 	  end

@@ -1,10 +1,13 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0.rc1'
+gem 'rails', '~> 4.1.1'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0.rc1'
+gem 'railties', '~> 4.1.0'
+gem 'sass-rails', '~> 4.0.3'
+
+gem 'sprockets', '2.11.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -51,7 +54,7 @@ gem 'validates_timeliness', '~> 3.0.14'
 #gem 'google-api-client', require: 'google/api_client'
 gem 'bootstrap-sass'
 
-gem 'rails_12factor', group: :production
+gem 'rails_12factor', group: :production #this gem configures your app to serve static assets
 
 #Database for Active Record:
 #group :development, :test do
