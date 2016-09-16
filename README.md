@@ -8,3 +8,7 @@ Events can also be marked as private and there is an option in the menu to displ
 Another feature is the ability to export the event to Google calendar.
 
 
+
+
+Note to self: https://medium.com/@paulohenriquesoares/1-reason-why-your-rails-app-is-not-scaling-63745a5151c6#.tk9d8ptkq
+
